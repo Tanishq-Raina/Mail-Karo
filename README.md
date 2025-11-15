@@ -90,8 +90,9 @@ Founder & Developer of **Mail Karo – AI Email Writer**
 📧 **Email:** adarshmishra70931@gmail.com   
 🧠 Always open to collaborations, suggestions, and contributions to make **Mail Karo** even better.
 
-📫**Company Email:** mailkaro2026@gmail.com
-
+📫**Company Email:** mailkaro2026@gmail.com <br>
+ **Company LinkedIn:** [Mail Karo](https://www.linkedin.com/company/mail-karo/)
+ 
 ---
 
 ## 📄 License
