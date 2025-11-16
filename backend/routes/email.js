@@ -61,6 +61,7 @@ Key Requirements:
 - Ensure proper email formatting and structure
 - Make reasonable assumptions about context where needed
 - Keep the email focused and purposeful
+- Keep length of email of 200 words and human tone
 
 Generate the complete email now:`;
 
