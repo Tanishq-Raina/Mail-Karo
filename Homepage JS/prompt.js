@@ -7,45 +7,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetBtn = document.getElementById("resetBtn");
   const regenerateBtn = document.getElementById("regenerateBtn");
 
-  let lastPrompt = ""; // ⭐ Store last used prompt for Regenerate
+  const toneSelect = document.getElementById("toneSelect"); // ⭐ Tone dropdown
 
-  // ⭐ Set initial button state
+  let lastPrompt = ""; 
+  let lastTone = "";     // ⭐ Save last tone for regenerate
+
+  // ⭐ Initial button text
   generateBtn.innerText = "⚡ Generate";
 
-  // ⭐ Reset Generate button when user types
+  // ⭐ Reset Generate button while typing
   promptInput.addEventListener("input", () => {
     generateBtn.innerText = "⚡ Generate";
-    // Auto-expand textarea
     promptInput.style.height = "auto";
     promptInput.style.height = promptInput.scrollHeight + "px";
   });
 
-  // ⭐ MAIN Generate function
-  const generateEmail = async (customPrompt = null) => {
-    const prompt = customPrompt || promptInput.value.trim();
-    lastPrompt = prompt; // store for regenerate
+  // ⭐ MAIN Generate Function
+  const generateEmail = async (customPrompt = null, customTone = null) => {
+    const userPrompt = customPrompt || promptInput.value.trim();
+    const tone = customTone || toneSelect.value;
 
-    if (prompt === "") {
+    lastPrompt = userPrompt;
+    lastTone = tone;
+
+    if (userPrompt === "") {
       outputText.innerText = "⚠️ Please enter a prompt before generating!";
       outputText.style.color = "#FFD700";
       return;
     }
 
+    // ⭐ Build final prompt with tone
+    const finalPrompt = `${userPrompt}. Write this email in a ${tone} tone.`;
+
+    // UI updates
     generateBtn.innerText = "🔄 Generating…";
     generateBtn.disabled = true;
     promptInput.disabled = true;
 
-    // spinner
     if (!document.getElementById("email-spinner-style")) {
       const s = document.createElement("style");
       s.id = "email-spinner-style";
       s.innerHTML = `
-      .email-spinner { display:inline-block; width:16px; height:16px;
-               border:2px solid rgba(255,255,255,0.2);
-               border-top-color:#EAEAEA; border-radius:50%;
-               animation:spin 1s linear infinite; margin-right:8px;
-               vertical-align:middle; }
-      @keyframes spin { to { transform: rotate(360deg); } }
+        .email-spinner { display:inline-block; width:16px; height:16px;
+                border:2px solid rgba(255,255,255,0.2);
+                border-top-color:#EAEAEA; border-radius:50%;
+                animation:spin 1s linear infinite; margin-right:8px;
+                vertical-align:middle; }
+        @keyframes spin { to { transform: rotate(360deg); } }
       `;
       document.head.appendChild(s);
     }
@@ -61,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt }),
+          body: JSON.stringify({ prompt: finalPrompt }),
         }
       );
 
@@ -85,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     promptInput.disabled = false;
   };
 
-  // ⭐ Generate Button Click
+  // ⭐ Generate Button
   generateBtn.addEventListener("click", () => generateEmail());
 
   // ⭐ Copy Button
@@ -100,13 +108,13 @@ document.addEventListener("DOMContentLoaded", () => {
     promptInput.value = "";
     outputText.innerText = "Your AI-generated email will appear here...";
     generateBtn.innerText = "⚡ Generate";
-    promptInput.style.height = "50px"; // reset height
+    promptInput.style.height = "50px";
   });
 
-  // ⭐ Regenerate Button (same last prompt)
+  // ⭐ Regenerate — same prompt + same tone
   regenerateBtn.addEventListener("click", () => {
     if (lastPrompt.trim() === "") return;
-    generateEmail(lastPrompt);
+    generateEmail(lastPrompt, lastTone);
   });
 });
 

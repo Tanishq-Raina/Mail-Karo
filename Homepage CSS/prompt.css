@@ -193,3 +193,54 @@
     padding: 12px;
   }
 }
+
+/* ⭐ Tone Selector Box */
+.tone-box {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-start;
+  color: #EAEAEA;
+  font-size: 1rem;
+}
+
+/* Tone Label */
+.tone-box label {
+  font-weight: 600;
+  color: #FFD700;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Tone Dropdown */
+.tone-box select {
+  background-color: #1A1A1A;
+  color: #EAEAEA;
+  border: 1px solid #333;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  outline: none;
+}
+
+/* Hover + Focus Effect */
+.tone-box select:hover,
+.tone-box select:focus {
+  border-color: #FFD700;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.25);
+}
+
+/* Mobile Responsive */
+@media (max-width: 700px) {
+  .tone-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .tone-box select {
+    width: 100%;
+  }
+}
