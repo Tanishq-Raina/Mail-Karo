@@ -99,6 +99,73 @@ body {
   height: 24px;
 }
 
+/* Sun and Moon Icon Styles */
+.sun-and-moon > :is(.moon, .sun, .sun-beams) {
+  transform-origin: center;
+}
+
+.sun-and-moon > :is(.moon, .sun) {
+  fill: var(--accent);
+}
+
+.theme-toggle:hover .sun-and-moon > :is(.moon, .sun) {
+  fill: var(--accent-hover);
+}
+
+.sun-and-moon > .sun-beams {
+  stroke: var(--accent);
+  stroke-width: 2px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.theme-toggle:hover .sun-and-moon > .sun-beams {
+  stroke: var(--accent-hover);
+}
+
+.sun-and-moon > .sun {
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+[data-theme="dark"] .sun-and-moon > .sun {
+  transform: scale(1.75);
+  opacity: 0;
+}
+
+[data-theme="dark"] .sun-and-moon > .sun-beams {
+  opacity: 0;
+  transform: rotateZ(-25deg);
+}
+
+.sun-and-moon > .moon {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .sun-and-moon > .moon {
+  opacity: 1;
+}
+
+#moon-mask > circle {
+  transform: translateX(0);
+  transition: transform 0.25s ease;
+}
+
+[data-theme="dark"] #moon-mask > circle {
+  transform: translateX(-10px);
+}
+
+@supports (cx: 1) {
+  #moon-mask > circle {
+    cx: 16;
+    transition: cx 0.25s ease;
+  }
+  
+  [data-theme="dark"] #moon-mask > circle {
+    cx: 6;
+    transform: translateX(0);
+  }
+}
+
 .logo {
   width: 44px;
   height: 44px;
